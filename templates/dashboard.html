@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Invoice Management</h1>
+    </div>
+    {% if not invoices %}
+    <div class="error-banner">
+        No valid invoices found in database
+    </div>
+    {% endif %}
+    <div class="invoice-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sender</th>
+                    <th>Invoice #</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Processed At</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.sender|default("Unknown sender", true) }}</td>
+                    <td>{{ invoice.invoice_number|default("N/A", true) }}</td>
+                    <td>${{ "%.2f"|format(invoice.amount|float) }}</td>
+                    <td>{{ invoice.due_date|default("No due date", true) }}</td>
+                    <td>{{ invoice.processed_at|default("Unknown", true) }}</td>
+                    <td>
+                        {% if invoice.due_date %}
+                            {% if invoice.is_recurring %}
+                                <span class="status recurring">Recurring</span>
+                            {% endif %}
+                            {% if invoice.due_date < now %}
+                                <span class="status overdue">Overdue</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="status nodate">No Due Date</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="edit-btn" href="/edit/{{ invoice._id|string }}">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

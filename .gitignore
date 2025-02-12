@@ -1,0 +1,12 @@
+# Ignore compiled Python files
+__pycache__/
+
+# Ignore environment files
+.env
+
+# Ignore API key file
+google_vision_key.json
+
+# Ignore database and logs
+invoices.db
+invoices.json
