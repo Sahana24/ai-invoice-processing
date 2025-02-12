@@ -51,9 +51,9 @@ MONGO_COLLECTION_NAME=invoices
 ```
 
 4. Google Vision Setup
-    1. Create service account credentials in Google cloud console
-    2. Download the JSON Key File
-    3. Save as ```google_vision_key.json``` in project root
+    - Create service account credentials in Google cloud console
+    - Download the JSON Key File
+    - Save as ```google_vision_key.json``` in project root
 
 ## Usage
 
@@ -67,10 +67,10 @@ python app.py
 python dashboard.py
 ```
 Visit ```http://localhost:5000``` to:
-    - View all the invoices
-    - Edit incorrect data
-    - Identify Overdue Payments
-    - Track recurring bills 
+- View all the invoices
+- Edit incorrect data
+- Identify Overdue Payments
+- Track recurring bills 
 
 
 ## Project Structure
@@ -99,8 +99,8 @@ This section demonstrates how the AI Supported Invoice Processing Tool works wit
 
 ### Sample Invoices for Testing
 To test the tool, attach one of the sample invoices to an email and process it.
-    - Standard Invoice (USD): `static/invoices/Invoice_Details_1.pdf`
-    - UK Invoice with VAT (GBP): `static/invoices/Invoice_Details_1.pdf`
+- Standard Invoice (USD): `static/invoices/Invoice_Details_1.pdf`
+- UK Invoice with VAT (GBP): `static/invoices/Invoice_Details_1.pdf`
 
 **How to use these sample invoices:**
 1. **Send an email to yourself** with the **subject** `"Invoice INV-2025-00123"`.
@@ -118,8 +118,30 @@ To test the tool, attach one of the sample invoices to an email and process it.
 
 #### **Invoice Management Dashboard**
 Once an invoice is processed, it will be displayed in the web dashboard.
+- **Columns:**
+  - Sender, Invoice Number, Amount, Due Date, Processed At, Status
+- **Invoice Status:**
+  - **Recurring:** Automatically detected repeating invoices.
+  - **Overdue:** Past-due invoices.
+  - **No Due Date:** Invoices without a due date.
+  - **No Status:** Default state for invoices without special condition
+- **Actions:**
+  - **Edit:** Modify invoice details.
+ 
+**Dashboard Screenshot:**
+
 ![Invoice Management](static/images/invoice_management.png)
 
 #### **Editing an Invoice**
-You can edit an invoice and update its details.
+This page allows users to edit an existing invoice.
+
+- **Editable Fields:**
+  - Invoice Number
+  - Amount
+  - Due Date
+- **Action Buttons:**
+  - `"Save Changes"` – Updates the invoice.
+
+**Edit Invoice Screenshot:**
+
 ![Edit Invoice](static/images/edit_invoice.png)
